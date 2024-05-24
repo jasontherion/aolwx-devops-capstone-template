@@ -140,9 +140,8 @@ class TestAccountService(TestCase):
     #     )
     #     self.assertEqual(resp.status_code, status.HTTP_404_NOT_FOUND)
 
-
     def  test_read_account_id(self):
-          """It should Read a single Account"""
+        """It should Read a single Account"""
         account = self._create_accounts(1)[0]
         resp = self.client.get(
             f"{BASE_URL}/{account.id}", content_type="application/json"
@@ -154,7 +153,7 @@ class TestAccountService(TestCase):
     def test_read_account_id_error(self):
         """ It should error in read account id for status 404 """
         resp = self.client.get(
-            f"{BASE_URL}/{account.id}", content_type="application/json"
+            f"{BASE_URL}/0", content_type="application/json"
         )
         self.assertEqual(resp.status_code, status.HTTP_404_NOT_FOUND)
 
