@@ -124,3 +124,65 @@ class TestAccountService(TestCase):
         self.assertEqual(response.status_code, status.HTTP_415_UNSUPPORTED_MEDIA_TYPE)
 
     # ADD YOUR TEST CASES HERE ...
+
+    # def test_all_accounts(self):
+    #     """ It should all account """
+    #     resp = self.client.get(
+    #         f"{BASE_URL}/", content_type="application/json"
+    #     )
+    #     self
+    #     self.assertEqual(resp.status_code, status.HTTP_200_OK)
+
+    # def test_all_accounts_error(self) :
+    #     """ It should error in accounts for status 404 """
+    #     resp = self.client.get(
+    #         f"{BASE_URL}/", content_type="application/json"
+    #     )
+    #     self.assertEqual(resp.status_code, status.HTTP_404_NOT_FOUND)
+
+    def  test_read_account_id(self):
+        """It should Read a single Account"""
+        account = self._create_accounts(1)[0]
+        resp = self.client.get(
+            f"{BASE_URL}/{account.id}", content_type="application/json"
+        )
+        self.assertEqual(resp.status_code, status.HTTP_200_OK)
+        data = resp.get_json()
+        self.assertEqual(data["name"], account.name)
+
+    def test_read_account_id_error(self):
+        """ It should error in read account id for status 404 """
+        resp = self.client.get(
+            f"{BASE_URL}/0", content_type="application/json"
+        )
+        self.assertEqual(resp.status_code, status.HTTP_404_NOT_FOUND)
+
+
+    # def  test_update_account(self):
+    #      """ It should uodate account"""
+    #     resp = self.client.put(
+    #         f"{BASE_URL}/{account.id}", content_type="application/json"
+    #     )
+    #      self.assertEqual(resp.status_code, status.HTTP_200_OK)
+
+    # def test_update_accoun_error(self) :
+    #     """ It should error in read account id for status 404 """
+    #     resp = self.client.put(
+    #         f"{BASE_URL}/{account.id}", content_type="application/json"
+    #     )
+    #     self.assertEqual(resp.status_code, status.HTTP_404_NOT_FOUND)
+
+
+    # def  test_delete_account(self):
+    #      """ It should update account"""
+    #     resp = self.client.delete(
+    #         f"{BASE_URL}/{account.id}", content_type="application/json"
+    #     )
+    #      self.assertEqual(resp.status_code, status.HTTP_200_OK)
+
+    # def test_delete_accoun_error(self):
+    #     """ It should error in read account id for status 404 """
+    #     resp = self.client.delete(
+    #         f"{BASE_URL}/{account.id}", content_type="application/json"
+    #     )
+    #     self.assertEqual(resp.status_code, status.HTTP_404_NOT_FOUND)
