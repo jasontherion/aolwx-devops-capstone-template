@@ -132,5 +132,5 @@ Licensed under the Apache License. See [LICENSE](LICENSE)
 
 ## <h3 align="center"> © IBM Corporation 2022. All rights reserved. <h3/>
 
-
+## GitHub
 ![Build Status](https://github.com/jasontherion/aolwx-devops-capstone-template.git/actions/workflows/ci-build.yaml/badge.svg)
