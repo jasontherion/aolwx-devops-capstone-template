@@ -12,7 +12,7 @@ from unittest import TestCase
 from tests.factories import AccountFactory
 from service.common import status  # HTTP Status Codes
 from service.models import db, Account, init_db
-from service.routes import app 
+from service.routes import app
 
 DATABASE_URI = os.getenv(
     "DATABASE_URI", "postgresql://postgres:postgres@localhost:5432/postgres"
@@ -36,7 +36,7 @@ class TestAccountService(TestCase):
         app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URI
         app.logger.setLevel(logging.CRITICAL)
         init_db(app)
-        talisman.force_https = False #forzamos a que el https no sea obligatorio en las pruebas
+        talisman.force_https = False
 
     @classmethod
     def tearDownClass(cls):
@@ -137,7 +137,7 @@ class TestAccountService(TestCase):
         data = resp.get_json()
         self.assertEqual(len(data), 5)
 
-    def test_all_accounts_error(self) :
+    def test_all_accounts_error(self):
         """ It should error in accounts for status 404 """
         resp = self.client.get(
             f"{BASE_URL}/", content_type="application/json"
@@ -147,13 +147,12 @@ class TestAccountService(TestCase):
     def test_get_account(self):
         """It should Read a single Account"""
         account = self._create_accounts(1)[0]
-        # import pdb; pdb.set_trace()  # Punto de interrupción para depuración
         resp = self.client.get(
             f"{BASE_URL}/{account.id}", content_type="application/json"
         )
         print(f"url :: {BASE_URL}/")
         print(f"Created account ID: {account.id}")
-        print("respuesta3: " +  str(resp))
+        print("respuesta3: " + str(resp))
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
         data = resp.get_json()
         # print("resultado salida: " +  resp.get_json())
@@ -163,7 +162,6 @@ class TestAccountService(TestCase):
         """It should not Read an Account that is not found"""
         resp = self.client.get(f"{BASE_URL}/0")
         self.assertEqual(resp.status_code, status.HTTP_404_NOT_FOUND)
-
 
     def test_update_account(self):
         """It should Update an existing Account"""
@@ -179,14 +177,12 @@ class TestAccountService(TestCase):
         updated_account = resp.get_json()
         self.assertEqual(updated_account["name"], "Something Known")
 
-
-    def test_update_account_error(self) :
+    def test_update_account_error(self):
         """ It should error in read account id for status 404 """
         resp = self.client.put(
             f"{BASE_URL}/0", content_type="application/json"
         )
         self.assertEqual(resp.status_code, status.HTTP_404_NOT_FOUND)
-
 
     def test_delete_account(self):
         """It should Delete an Account"""
@@ -218,4 +214,3 @@ class TestAccountService(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         # Check for the CORS header
         self.assertEqual(response.headers.get('Access-Control-Allow-Origin'), '*')
-
