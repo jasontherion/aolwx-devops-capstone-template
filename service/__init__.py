@@ -7,11 +7,13 @@ and SQL database
 import sys
 from flask import Flask
 from flask_cors import CORS
+from flask_talisman import Talisman
 from service import config
 from service.common import log_handlers
 
 # Create Flask application
 app = Flask(__name__)
+talisman = Talisman(app)
 CORS(app,  resources={r"/*": {"origins": "*"}})
 app.config.from_object(config)
 
