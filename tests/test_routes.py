@@ -12,7 +12,7 @@ from unittest import TestCase
 from tests.factories import AccountFactory
 from service.common import status  # HTTP Status Codes
 from service.models import db, Account, init_db
-from service.routes import app 
+from service.routes import app
 
 DATABASE_URI = os.getenv(
     "DATABASE_URI", "postgresql://postgres:postgres@localhost:5432/postgres"
@@ -36,7 +36,7 @@ class TestAccountService(TestCase):
         app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URI
         app.logger.setLevel(logging.CRITICAL)
         init_db(app)
-        talisman.force_https = False #forzamos a que el https no sea obligatorio en las pruebas
+        talisman.force_https = False
 
     @classmethod
     def tearDownClass(cls):
@@ -152,7 +152,7 @@ class TestAccountService(TestCase):
         )
         print(f"url :: {BASE_URL}/")
         print(f"Created account ID: {account.id}")
-        print("respuesta3: " +  str(resp))
+        print("respuesta3: " + str(resp))
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
         data = resp.get_json()
         # print("resultado salida: " +  resp.get_json())
