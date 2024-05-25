@@ -137,7 +137,7 @@ class TestAccountService(TestCase):
         data = resp.get_json()
         self.assertEqual(len(data), 5)
 
-    def test_all_accounts_error(self) :
+    def test_all_accounts_error(self):
         """ It should error in accounts for status 404 """
         resp = self.client.get(
             f"{BASE_URL}/", content_type="application/json"
